@@ -173,8 +173,8 @@ for feature in feature_names:
     heatmap = ax.imshow(
         reduced_time_gen,
         cmap="jet",
-        vmin=-0.1,
-        vmax=0.1,
+        vmin=-0.12,
+        vmax=0.12,
         extent=[0, reduced_time_gen.shape[1], 60, 0],
     )
 

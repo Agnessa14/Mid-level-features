@@ -122,23 +122,15 @@ def decoding_single_subject_func(
             )
             self.F = self.F.transpose(1, 2, 0)
 
+            # ******************************************************************
+            # THIS IS THE CORRECT EPOCHS METHOD acc. to Guggenmos et al. (2018) 
+            # ******************************************************************
             if (
-                self.mvnn_dim == "time"
+                self.mvnn_dim == "epochs"
             ):  # if computing covariance matrices for each time point
                 # Computing sigma for each time point, then averaging across time
                 covariance_matrix = np.mean(
                     [_cov(self.F[:, :, t]) for t in range(self.timepoints)],
-                    axis=0,
-                )
-            elif (
-                self.mvnn_dim == "epochs"
-            ):  # if computing covariance matrices for each time epoch
-                # Computing sigma for each epoch, then averaging across epochs
-                covariance_matrix = np.mean(
-                    [
-                        _cov(np.transpose(self.F[e, :, :]))
-                        for e in range(self.F.shape[0])
-                    ],
                     axis=0,
                 )
 
@@ -496,7 +488,7 @@ if __name__ == "__main__":
         "videos: [6, 7, 8, 9, 10, 11, 17, 18, 20, 21, 23, 25, 27, 28, 29, 30, 31, 32, 34, 36]",
     )
     parser.add_argument(
-        "--mvnn_dim", default="epochs", type=str, help="time vs. epochs"
+        "--mvnn_dim", default="epochs", type=str,
     )
     parser.add_argument(
         "-f",

@@ -165,28 +165,18 @@ def mvnn_fit(sub, mvnn_dim, freq, region, input_type, data_dir):
                 c, :, :, :
             ]  # due to slight differences in preprocessing
 
+        # ******************************************************************
+        # THIS IS THE CORRECT EPOCHS METHOD acc. to Guggenmos et al. (2018) 
+        # ******************************************************************
         # Computing the covariance matrices
         # count_2 refers to the condition (since sigma_ has the dimensions
         # n_cond, number of channels, number of channels)
         if (
-            mvnn_dim == "time"
-        ):  # if computing covariace matrices for each time point
+            mvnn_dim == "epochs"
+        ): 
             # Computing sigma for each time point, then averaging across time
             sigma_[count_2] = np.mean(
                 [_cov(cond_data[:, :, t]) for t in range(len(time))], axis=0
-            )
-            count_2 += 1
-
-        elif (
-            mvnn_dim == "epochs"
-        ):  # if computing covariance matrices for each time epoch
-            # Computing sigma for each epoch, then averaging across epochs
-            sigma_[count_2, :, :] = np.mean(
-                [
-                    _cov(np.transpose(cond_data[e, :, :]))
-                    for e in range(cond_data.shape[0])
-                ],
-                axis=0,
             )
             count_2 += 1
 
@@ -409,7 +399,7 @@ if __name__ == "__main__":
         required=True,
     )
     parser.add_argument(
-        "--mvnn_dim", default="epochs", type=str, help="time vs. epochs"
+        "--mvnn_dim", default="epochs", type=str,
     )
     parser.add_argument(
         "-f",

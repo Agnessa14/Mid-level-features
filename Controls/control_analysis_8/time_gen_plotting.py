@@ -141,19 +141,19 @@ for feature in feature_names:
     fig, ax = plt.subplots()
 
     if feature == "action":
-        vmax_value = 0.18
+        vmax_value = 0.2
     elif feature == "edges":
-        vmax_value = 0.35
+        vmax_value = 0.45
     elif feature == "reflectance":
-        vmax_value = 0.12
+        vmax_value = 0.16
     elif feature == "lighting":
-        vmax_value = 0.16
+        vmax_value = 0.2
     elif feature == "depth":
-        vmax_value = 0.16
+        vmax_value = 0.2
     elif feature == "skeleton":
-        vmax_value = 0.22
+        vmax_value = 0.3
     elif feature == "world_normal":
-        vmax_value = 0.14
+        vmax_value = 0.18
 
     if input_type == "images" or input_type == "miniclips":
         heatmap = ax.imshow(

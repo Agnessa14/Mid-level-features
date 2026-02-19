@@ -195,7 +195,8 @@ def encoding(
         rmse = np.zeros((timepoints, n_channels))
         corr = np.zeros((timepoints, n_channels))
         var_explained = np.zeros((timepoints, n_channels))
-        residuals = np.zeros((timepoints, 180, n_channels))
+        n_trials = y_test.shape[0]
+        residuals = np.zeros((timepoints, n_trials, n_channels))
 
         for tp in range(timepoints):
             if alpha_tp is True:
